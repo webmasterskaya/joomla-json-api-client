@@ -1,0 +1,15 @@
+{
+  "require": {
+    "swisnl/json-api-client": "^2.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Webmasterskaya\\JsonApi\\Client\\Joomla\\": "src/"
+    }
+  },
+  "config": {
+    "allow-plugins": {
+      "php-http/discovery": false
+    }
+  }
+}
