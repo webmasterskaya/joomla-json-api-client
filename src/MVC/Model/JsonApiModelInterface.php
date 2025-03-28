@@ -9,9 +9,6 @@
 
 namespace Webmasterskaya\JsonApi\Client\Joomla\MVC\Model;
 
-use Swis\JsonApi\Client\Interfaces\ClientInterface;
-
 interface JsonApiModelInterface
 {
-	public function getClient(): ClientInterface;
 }

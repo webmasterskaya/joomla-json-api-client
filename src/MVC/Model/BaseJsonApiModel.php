@@ -10,6 +10,7 @@
 namespace Webmasterskaya\JsonApi\Client\Joomla\MVC\Model;
 
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Extension\ComponentInterface;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Factory\MVCFactoryAwareTrait;
@@ -20,6 +21,8 @@ use Joomla\CMS\User\CurrentUserInterface;
 use Joomla\CMS\User\CurrentUserTrait;
 use Joomla\Event\DispatcherAwareInterface;
 use Joomla\Event\DispatcherAwareTrait;
+use Joomla\Event\DispatcherInterface;
+use Swis\JsonApi\Client\Interfaces\DocumentClientInterface;
 use Webmasterskaya\JsonApi\Client\Joomla\JsonApiClientAwareInterface;
 use Webmasterskaya\JsonApi\Client\Joomla\JsonApiClientAwareTrait;
 
@@ -98,5 +101,46 @@ abstract class BaseJsonApiModel extends JoomlaBaseModel implements
 				$this->setMVCFactory($component->getMVCFactory());
 			}
 		}
+	}
+
+	/**
+	 * Boots the component with the given name.
+	 *
+	 * @param   string  $component  The component name, eg. com_content.
+	 *
+	 * @return  ComponentInterface  The service container
+	 *
+	 * @throws \Exception
+	 * @since   4.0.0
+	 */
+	protected function bootComponent(string $component): ComponentInterface
+	{
+		return Factory::getApplication()->bootComponent($component);
+	}
+
+	/**
+	 * Method to get the model name
+	 *
+	 * The model name. By default parsed using the classname or it can be set
+	 * by passing a $config['name'] in the class constructor
+	 *
+	 * @return  string  The name of the model
+	 *
+	 * @since   4.0.0
+	 * @throws  \Exception
+	 */
+	public function getName()
+	{
+		if (empty($this->name)) {
+			$r = null;
+
+			if (!preg_match('/Model(.*)/i', \get_class($this), $r)) {
+				throw new \Exception(Text::sprintf('JLIB_APPLICATION_ERROR_GET_NAME', __METHOD__), 500);
+			}
+
+			$this->name = str_replace(['\\', 'jsonapimodel', 'model'], '', strtolower($r[1]));
+		}
+
+		return $this->name;
 	}
 }
