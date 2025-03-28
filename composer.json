@@ -1,4 +1,6 @@
 {
+  "name": "webmasterskaya/json-api-client-joomla",
+  "type": "library",
   "require": {
     "swisnl/json-api-client": "^2.5"
   },
