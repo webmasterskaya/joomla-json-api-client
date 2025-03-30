@@ -9,11 +9,10 @@ services:
       JOOMLA_DB_USER: joomla_user
       JOOMLA_DB_PASSWORD: joomla_password
       JOOMLA_DB_NAME: joomla_db
+      PHP_MEMORY_LIMIT: "256M"
     volumes:
       - ./joomla:/var/www/html
-      - ../com_jsonapiclient/site:/var/www/html/components/com_jsonapiclient
-      - ../com_jsonapiclient/administrator:/var/www/html/administrator/components/com_jsonapiclient
-      - ../com_jsonapiclient/compose.yml:/var/www/html/administrator/components/com_jsonapiclient/compose.yml
+      - ./php.ini:/usr/local/etc/php/php.ini
     depends_on:
       - db
     restart: always

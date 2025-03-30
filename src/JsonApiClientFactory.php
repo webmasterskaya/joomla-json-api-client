@@ -9,26 +9,29 @@
 
 namespace Webmasterskaya\JsonApi\Client\Joomla;
 
-use Joomla\CMS\Http\Http;
+use Joomla\Http\HttpFactory;
 use Laminas\Diactoros\RequestFactory;
 use Laminas\Diactoros\StreamFactory;
 use Swis\JsonApi\Client\Client;
 use Swis\JsonApi\Client\DocumentClient;
 use Swis\JsonApi\Client\Parsers\ResponseParser;
 use Swis\JsonApi\Client\TypeMapper;
+use Webmasterskaya\JsonApi\Client\Joomla\Parser\DocumentParser;
 
 class JsonApiClientFactory implements JsonApiClientFactoryInterface
 {
 	public function createClient(array $jsonApiClientConfig = []): DocumentClient
 	{
-		$http_options    = $jsonApiClientConfig['options'] ?? [];
-		$http_adapters   = $jsonApiClientConfig['adapters'] ?? '';
-		$default_headers = $jsonApiClientConfig['default_headers'] ?? [];
-		$base_uri        = $jsonApiClientConfig['base_uri'] ?? '';
-		$type_map        = $jsonApiClientConfig['type_map'] ?? [];
+		$http_options    = $jsonApiClientConfig['options'] ?: [];
+		$http_adapters   = $jsonApiClientConfig['adapters'] ?: 'curl';
+		$default_headers = $jsonApiClientConfig['default_headers'] ?: [];
+		$base_uri        = $jsonApiClientConfig['base_uri'] ?: '';
+		$type_map        = $jsonApiClientConfig['type_map'] ?: [];
+
+		$httpFactory = new HttpFactory();
 
 		$client = new Client(
-			new Http($http_options, $http_adapters),
+			$httpFactory->getHttp($http_options, $http_adapters),
 			new RequestFactory(),
 			new StreamFactory()
 		);
@@ -50,6 +53,6 @@ class JsonApiClientFactory implements JsonApiClientFactoryInterface
 
 		$client->setBaseUri($base_uri);
 
-		return new DocumentClient($client, ResponseParser::create($typeMapper));
+		return new DocumentClient($client, new ResponseParser(DocumentParser::create($typeMapper)));
 	}
 }

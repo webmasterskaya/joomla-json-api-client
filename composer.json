@@ -2,7 +2,8 @@
   "name": "webmasterskaya/json-api-client-joomla",
   "type": "library",
   "require": {
-    "swisnl/json-api-client": "^2.5"
+    "swisnl/json-api-client": "^2.5",
+    "ext-curl": "*"
   },
   "autoload": {
     "psr-4": {

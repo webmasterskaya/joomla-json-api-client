@@ -21,8 +21,6 @@ use Joomla\CMS\User\CurrentUserInterface;
 use Joomla\CMS\User\CurrentUserTrait;
 use Joomla\Event\DispatcherAwareInterface;
 use Joomla\Event\DispatcherAwareTrait;
-use Joomla\Event\DispatcherInterface;
-use Swis\JsonApi\Client\Interfaces\DocumentClientInterface;
 use Webmasterskaya\JsonApi\Client\Joomla\JsonApiClientAwareInterface;
 use Webmasterskaya\JsonApi\Client\Joomla\JsonApiClientAwareTrait;
 
@@ -64,6 +62,8 @@ abstract class BaseJsonApiModel extends JoomlaBaseModel implements
 				$value = $config["jsonapi.$key"];
 			}
 		}
+
+		$this->jsonApiClientConfig = array_filter($this->jsonApiClientConfig, fn ($item) => !empty($item));
 
 		// Guess the option from the class name (Option)Model(View).
 		if (empty($this->option))

@@ -2,6 +2,7 @@
 
 namespace Joomla\Component\JsonApiClient\Administrator\Extension;
 
+use Joomla\CMS\Dispatcher\ComponentDispatcherFactoryInterface;
 use Joomla\CMS\Extension\MVCComponent;
 
 /**

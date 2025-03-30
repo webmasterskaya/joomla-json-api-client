@@ -10,6 +10,7 @@
 namespace Webmasterskaya\JsonApi\Client\Joomla\MVC\Model;
 
 use Joomla\CMS\MVC\Model\ItemModelInterface;
+use Joomla\Utilities\ArrayHelper;
 
 abstract class ItemJsonApiModel extends BaseJsonApiModel implements ItemModelInterface
 {
@@ -65,12 +66,14 @@ abstract class ItemJsonApiModel extends BaseJsonApiModel implements ItemModelInt
 				$this->getItemRequestHeaders($pk)
 			);
 
-			if($document->isSuccess()){
+			if (!$document->isSuccess())
+			{
 				$errors = $document->getErrors()->toArray();
 				throw new \RuntimeException(array_shift($errors));
 			}
 
-			$this->_item[$store] = $document->getData();
+			$result              = $document->getData()->toArray();
+			$this->_item[$store] = ArrayHelper::toObject($result);
 		}
 
 		return $this->_item[$store];

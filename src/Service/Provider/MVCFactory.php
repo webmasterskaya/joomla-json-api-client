@@ -1,0 +1,81 @@
+<?php
+/**
+ * @package     Webmasterskaya\JsonApi\Client\Joomla\Service\Provider
+ * @subpackage
+ *
+ * @copyright   A copyright
+ * @license     A "Slug" license name e.g. GPL2
+ */
+
+namespace Webmasterskaya\JsonApi\Client\Joomla\Service\Provider;
+
+use Joomla\CMS\Cache\CacheControllerFactoryInterface;
+use Joomla\CMS\Form\FormFactoryInterface;
+use Joomla\CMS\Mail\MailerFactoryInterface;
+use Joomla\CMS\MVC\Factory\ApiMVCFactory;
+use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
+use Joomla\CMS\Router\SiteRouter;
+use Joomla\CMS\User\UserFactoryInterface;
+use Joomla\Database\DatabaseInterface;
+use Joomla\DI\Container;
+use Joomla\DI\ServiceProviderInterface;
+use Joomla\Event\DispatcherInterface;
+use Webmasterskaya\JsonApi\Client\Joomla\JsonApiClientFactoryInterface;
+
+class MVCFactory implements ServiceProviderInterface
+{
+	/**
+	 * The extension namespace
+	 *
+	 * @var  string
+	 *
+	 * @since   4.0.0
+	 */
+	private $namespace;
+
+	/**
+	 * MVCFactory constructor.
+	 *
+	 * @param   string  $namespace  The namespace
+	 *
+	 * @since   4.0.0
+	 */
+	public function __construct(string $namespace)
+	{
+		$this->namespace = $namespace;
+	}
+
+	/**
+	 * Registers the service provider with a DI container.
+	 *
+	 * @param   Container  $container  The DI container.
+	 *
+	 * @return  void
+	 *
+	 * @since   4.0.0
+	 */
+	public function register(Container $container)
+	{
+		$container->set(
+			MVCFactoryInterface::class,
+			function (Container $container) {
+				if (\Joomla\CMS\Factory::getApplication()->isClient('api')) {
+					$factory = new ApiMVCFactory($this->namespace);
+				} else {
+					$factory = new \Webmasterskaya\JsonApi\Client\Joomla\MVC\Factory\MVCFactory($this->namespace);
+				}
+
+				$factory->setFormFactory($container->get(FormFactoryInterface::class));
+				$factory->setDispatcher($container->get(DispatcherInterface::class));
+				$factory->setDatabase($container->get(DatabaseInterface::class));
+				$factory->setSiteRouter($container->get(SiteRouter::class));
+				$factory->setCacheControllerFactory($container->get(CacheControllerFactoryInterface::class));
+				$factory->setUserFactory($container->get(UserFactoryInterface::class));
+				$factory->setMailerFactory($container->get(MailerFactoryInterface::class));
+				$factory->setJsonApiClientFactory($container->get(JsonApiClientFactoryInterface::class));
+
+				return $factory;
+			}
+		);
+	}
+}
