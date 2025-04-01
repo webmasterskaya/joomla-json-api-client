@@ -9,7 +9,7 @@
 
 namespace Webmasterskaya\JsonApi\Client;
 
-use Webmasterskaya\JsonApi\Client\Exception\JsonApiClientFactoryNotFoundException;
+use Webmasterskaya\JsonApi\Client\Exception\ClientFactoryNotFoundException;
 
 trait ClientFactoryAwareTrait
 {
@@ -22,7 +22,7 @@ trait ClientFactoryAwareTrait
 			return $this->jsonApiClientFactory;
 		}
 
-		throw new JsonApiClientFactoryNotFoundException('JSON API Client Factory not set in ' . __CLASS__);
+		throw new ClientFactoryNotFoundException('JSON API Client Factory not set in ' . __CLASS__);
 	}
 
 	public function setJsonApiClientFactory(ClientFactoryInterface $jsonApiClientFactory): void

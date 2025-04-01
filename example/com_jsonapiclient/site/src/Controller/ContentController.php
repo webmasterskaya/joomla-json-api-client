@@ -22,7 +22,7 @@ class ContentController extends BaseController
 	 */
 	public function article(): ContentController
 	{
-		/** @var \Joomla\Component\JsonApiClient\Site\Model\AuthCodeJsonApiModel $model */
+		/** @var \Joomla\Component\JsonApiClient\Site\Model\AuthCodeModel $model */
 		$model = $this->getModel('AuthCode');
 
 		$model->send(['phone' => "+79534365118", 'ip' => IpHelper::getIp()]);

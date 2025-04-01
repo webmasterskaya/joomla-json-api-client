@@ -9,7 +9,7 @@
 
 namespace Webmasterskaya\JsonApi\Client;
 
-use Webmasterskaya\JsonApi\Client\Exception\JsonApiClientNotFoundException;
+use Webmasterskaya\JsonApi\Client\Exception\ClientNotFoundException;
 
 trait ClientAwareTrait
 {
@@ -36,7 +36,7 @@ trait ClientAwareTrait
 			return $this->jsonApiClient;
 		}
 
-		throw new JsonApiClientNotFoundException('JSON API Client not set in ' . __CLASS__);
+		throw new ClientNotFoundException('JSON API Client not set in ' . __CLASS__);
 	}
 
 	public function setJsonApiClient(ClientInterface $jsonApiClient): void
