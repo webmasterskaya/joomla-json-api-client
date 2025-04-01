@@ -9,6 +9,6 @@
 
 namespace Webmasterskaya\JsonApi\Client\Exception;
 
-class JsonApiClientNotFoundException extends \RuntimeException
+class ClientFactoryNotFoundException extends \RuntimeException
 {
 }
