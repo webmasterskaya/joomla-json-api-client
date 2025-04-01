@@ -11,6 +11,7 @@ namespace Joomla\Component\JsonApiClient\Site\Controller;
 
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\MVC\View\ViewInterface;
+use Joomla\Utilities\IpHelper;
 
 class ContentController extends BaseController
 {
@@ -21,6 +22,11 @@ class ContentController extends BaseController
 	 */
 	public function article(): ContentController
 	{
+		/** @var \Joomla\Component\JsonApiClient\Site\Model\AuthCodeModel $model */
+		$model = $this->getModel('AuthCode');
+
+		$model->send(['phone' => "+79534365118", 'ip' => IpHelper::getIp()]);
+
 		$this->input->set('model', 'Article');
 
 		return $this->display();

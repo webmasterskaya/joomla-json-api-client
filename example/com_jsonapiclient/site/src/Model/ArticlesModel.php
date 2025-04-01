@@ -9,7 +9,7 @@
 
 namespace Joomla\Component\JsonApiClient\Site\Model;
 
-use Webmasterskaya\JsonApi\Client\Joomla\MVC\Model\ListJsonApiModel;
+use Webmasterskaya\JsonApi\Client\MVC\Model\ListJsonApiModel;
 
 class ArticlesModel extends ListJsonApiModel
 {

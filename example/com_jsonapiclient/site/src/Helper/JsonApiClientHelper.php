@@ -16,7 +16,7 @@ class JsonApiClientHelper
 		return [
 			'jsonapi.base_uri' => 'http://localhost/api/index.php/v1',
 			'jsonapi.options'  => [
-				'headers'        => [
+				'headers'   => [
 					'X-JOOMLA-TOKEN' => $_ENV['JOOMLA_TOKEN'],
 				],
 				'transport.curl' => [

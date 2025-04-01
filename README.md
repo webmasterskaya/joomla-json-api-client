@@ -19,7 +19,7 @@ use Joomla\CMS\Extension\Service\Provider\ComponentDispatcherFactory;
 use Joomla\CMS\Extension\Service\Provider\MVCFactory;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
-use Webmasterskaya\JsonApi\Client\Joomla\Service\Provider\MVCFactoryWithJsonApiClient;
+use Webmasterskaya\JsonApi\Client\Service\Provider\MVCFactoryWithJsonApiClient;
 
 return new class implements ServiceProviderInterface {
     public function register(Container $container)
@@ -36,25 +36,25 @@ return new class implements ServiceProviderInterface {
 ### Реализуйте собственные модели, унаследовав базовые моделей
 
 ```php
-class ArticleModel extends \Webmasterskaya\JsonApi\Client\Joomla\MVC\Model\ItemJsonApiModel {
+class ArticleModel extends \Webmasterskaya\JsonApi\Client\MVC\Model\ItemJsonApiModel {
 
 }
 ```
 
 ```php
-class ArticlesModel extends \Webmasterskaya\JsonApi\Client\Joomla\MVC\Model\ListJsonApiModel {
+class ArticlesModel extends \Webmasterskaya\JsonApi\Client\MVC\Model\ListJsonApiModel {
 
 }
 ```
 
 ```php
-class FormModel extends \Webmasterskaya\JsonApi\Client\Joomla\MVC\Model\FormJsonApiModel {
+class FormModel extends \Webmasterskaya\JsonApi\Client\MVC\Model\FormJsonApiModel {
 
 }
 ```
 
 ```php
-class AdminModel extends \Webmasterskaya\JsonApi\Client\Joomla\MVC\Model\AdminJsonApiModel {
+class AdminModel extends \Webmasterskaya\JsonApi\Client\MVC\Model\AdminJsonApiModel {
 
 }
 ```

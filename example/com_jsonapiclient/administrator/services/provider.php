@@ -15,9 +15,9 @@ use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\Component\JsonApiClient\Administrator\Extension\Component;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
-use Webmasterskaya\JsonApi\Client\Joomla\JsonApiClientFactory;
-use Webmasterskaya\JsonApi\Client\Joomla\JsonApiClientFactoryInterface;
-use Webmasterskaya\JsonApi\Client\Joomla\Service\Provider\MVCFactory;
+use Webmasterskaya\JsonApi\Client\ClientFactory;
+use Webmasterskaya\JsonApi\Client\ClientFactoryInterface;
+use Webmasterskaya\JsonApi\Client\Service\Provider\MVCFactory;
 
 require_once JPATH_LIBRARIES . '/json-api-client/vendor/autoload.php';
 
@@ -30,7 +30,7 @@ return new class implements ServiceProviderInterface {
 	 */
 	public function register(Container $container)
 	{
-		$container->set(JsonApiClientFactoryInterface::class, new JsonApiClientFactory());
+		$container->set(ClientFactoryInterface::class, new ClientFactory());
 		$container->registerServiceProvider(new MVCFactory('\\Joomla\\Component\\JsonApiClient'));
 		$container->registerServiceProvider(new ComponentDispatcherFactory('\\Joomla\\Component\\JsonApiClient'));
 		$container->registerServiceProvider(new RouterFactory('\\Joomla\\Component\\JsonApiClient'));
