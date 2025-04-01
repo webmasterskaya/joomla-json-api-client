@@ -33,14 +33,14 @@ class ErrorParser
         if (!is_object($data)) {
             throw new ValidationException(sprintf('Error MUST be an object, "%s" given.', gettype($data)));
         }
-        if (property_exists($data, 'id') && !is_string($data->id)) {
-            throw new ValidationException(sprintf('Error property "id" MUST be a string, "%s" given.', gettype($data->id)));
+        if (property_exists($data, 'id') && !is_string($data->id) && !is_int($data->id)) {
+            throw new ValidationException(sprintf('Error property "id" MUST be a string or int, "%s" given.', gettype($data->id)));
         }
         if (property_exists($data, 'status') && !is_string($data->status)) {
             throw new ValidationException(sprintf('Error property "status" MUST be a string, "%s" given.', gettype($data->status)));
         }
-        if (property_exists($data, 'code') && !is_string($data->code)) {
-            throw new ValidationException(sprintf('Error property "code" MUST be a string, "%s" given.', gettype($data->code)));
+        if (property_exists($data, 'code') && !is_string($data->code) && !is_int($data->code)) {
+            throw new ValidationException(sprintf('Error property "code" MUST be a string or int, "%s" given.', gettype($data->code)));
         }
         if (property_exists($data, 'title') && !is_string($data->title)) {
             throw new ValidationException(sprintf('Error property "title" MUST be a string, "%s" given.', gettype($data->title)));

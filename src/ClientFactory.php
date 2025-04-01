@@ -12,15 +12,14 @@ namespace Webmasterskaya\JsonApi\Client;
 use Joomla\Http\HttpFactory;
 use Laminas\Diactoros\RequestFactory;
 use Laminas\Diactoros\StreamFactory;
-use Swis\JsonApi\Client\Client;
-use Swis\JsonApi\Client\DocumentClient;
+use Swis\JsonApi\Client\Client as BaseClient;
 use Swis\JsonApi\Client\Parsers\ResponseParser;
 use Swis\JsonApi\Client\TypeMapper;
 use Webmasterskaya\JsonApi\Client\Parser\DocumentParser;
 
 class ClientFactory implements ClientFactoryInterface
 {
-	public function createClient(array $jsonApiClientConfig = []): DocumentClient
+	public function createClient(array $jsonApiClientConfig = []): ClientInterface
 	{
 		$http_options    = $jsonApiClientConfig['options'] ?: [];
 		$http_adapters   = $jsonApiClientConfig['adapters'] ?: 'curl';
@@ -30,7 +29,7 @@ class ClientFactory implements ClientFactoryInterface
 
 		$httpFactory = new HttpFactory();
 
-		$client = new Client(
+		$client = new BaseClient(
 			$httpFactory->getHttp($http_options, $http_adapters),
 			new RequestFactory(),
 			new StreamFactory()
@@ -53,6 +52,6 @@ class ClientFactory implements ClientFactoryInterface
 
 		$client->setBaseUri($base_uri);
 
-		return new DocumentClient($client, new ResponseParser(DocumentParser::create($typeMapper)));
+		return new Client($client, new ResponseParser(DocumentParser::create($typeMapper)));
 	}
 }

@@ -9,7 +9,13 @@
 
 namespace Webmasterskaya\JsonApi\Client;
 
-interface ClientInterface
-{
+use Swis\JsonApi\Client\Interfaces\DocumentClientInterface;
+use Swis\JsonApi\Client\Interfaces\DocumentInterface;
+use Swis\JsonApi\Client\Interfaces\ItemDocumentInterface;
 
+interface ClientInterface extends DocumentClientInterface
+{
+	public function patch(string $endpoint, \JsonSerializable $document, array $headers = []): DocumentInterface;
+
+	public function post(string $endpoint, \JsonSerializable $document, array $headers = []): DocumentInterface;
 }

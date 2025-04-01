@@ -9,7 +9,6 @@
 
 namespace Webmasterskaya\JsonApi\Client;
 
-use Swis\JsonApi\Client\Interfaces\DocumentClientInterface as ClientInterface;
 use Webmasterskaya\JsonApi\Client\Exception\JsonApiClientNotFoundException;
 
 trait ClientAwareTrait

@@ -9,8 +9,6 @@
 
 namespace Webmasterskaya\JsonApi\Client;
 
-use Swis\JsonApi\Client\Interfaces\DocumentClientInterface as ClientInterface;
-
 interface ClientAwareInterface
 {
 	public function setJsonApiClient(ClientInterface $jsonApiClient): void;
