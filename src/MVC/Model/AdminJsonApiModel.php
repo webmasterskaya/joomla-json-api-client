@@ -9,7 +9,7 @@
 
 namespace Webmasterskaya\JsonApi\Client\MVC\Model;
 
-abstract class AdminJsonApiModel extends FormJsonApiModel
+abstract class AdminJsonApiModel extends FormJsonApiJsonApiModel
 {
 
 }

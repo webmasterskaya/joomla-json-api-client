@@ -24,7 +24,7 @@ use Joomla\Event\DispatcherAwareTrait;
 use Webmasterskaya\JsonApi\Client\ClientAwareInterface;
 use Webmasterskaya\JsonApi\Client\ClientAwareTrait;
 
-abstract class BaseModel extends JoomlaBaseModel implements
+abstract class BaseJsonApiModel extends JoomlaBaseModel implements
 	JsonApiModelInterface,
 	DispatcherAwareInterface,
 	CurrentUserInterface,

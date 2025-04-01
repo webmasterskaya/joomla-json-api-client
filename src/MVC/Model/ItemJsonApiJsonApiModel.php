@@ -12,7 +12,7 @@ namespace Webmasterskaya\JsonApi\Client\MVC\Model;
 use Joomla\CMS\MVC\Model\ItemModelInterface;
 use Joomla\Utilities\ArrayHelper;
 
-abstract class ItemJsonApiModel extends BaseModel implements ItemModelInterface
+abstract class ItemJsonApiJsonApiModel extends BaseJsonApiModel implements ItemModelInterface
 {
 	/**
 	 * An item.
