@@ -7,7 +7,7 @@
  * @license     A "Slug" license name e.g. GPL2
  */
 
-namespace Webmasterskaya\JsonApi\Client\;
+namespace Webmasterskaya\JsonApi\Client;
 
 use Swis\JsonApi\Client\Interfaces\DocumentClientInterface as ClientInterface;
 use Webmasterskaya\JsonApi\Client\Exception\JsonApiClientNotFoundException;

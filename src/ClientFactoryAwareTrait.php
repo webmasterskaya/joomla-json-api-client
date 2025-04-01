@@ -7,7 +7,7 @@
  * @license     A "Slug" license name e.g. GPL2
  */
 
-namespace Webmasterskaya\JsonApi\Client\;
+namespace Webmasterskaya\JsonApi\Client;
 
 use Webmasterskaya\JsonApi\Client\Exception\JsonApiClientFactoryNotFoundException;
 
