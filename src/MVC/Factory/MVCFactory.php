@@ -1,23 +1,23 @@
 <?php
 /**
- * @package     Webmasterskaya\JsonApi\Client\Joomla\MVC\Factory
+ * @package     Webmasterskaya\JsonApi\Client\MVC\Factory
  * @subpackage
  *
  * @copyright   A copyright
  * @license     A "Slug" license name e.g. GPL2
  */
 
-namespace Webmasterskaya\JsonApi\Client\Joomla\MVC\Factory;
+namespace Webmasterskaya\JsonApi\Client\MVC\Factory;
 
 use Joomla\CMS\MVC\Factory\MVCFactory as BaseMVCFactoryAlias;
 use Joomla\CMS\MVC\Model\ModelInterface;
 use Psr\Log\LoggerInterface;
-use Webmasterskaya\JsonApi\Client\Joomla\JsonApiClientAwareInterface;
-use Webmasterskaya\JsonApi\Client\Joomla\JsonApiClientFactoryAwareTrait;
+use Webmasterskaya\JsonApi\Client\ClientAwareInterface;
+use Webmasterskaya\JsonApi\Client\ClientFactoryAwareTrait;
 
 class MVCFactory extends BaseMVCFactoryAlias
 {
-	use JsonApiClientFactoryAwareTrait;
+	use ClientFactoryAwareTrait;
 
 	public function createModel($name, $prefix = '', array $config = []): ?ModelInterface
 	{
@@ -28,7 +28,7 @@ class MVCFactory extends BaseMVCFactoryAlias
 			return null;
 		}
 
-		if ($model instanceof JsonApiClientAwareInterface)
+		if ($model instanceof ClientAwareInterface)
 		{
 			$jsonApiClientFactory = $this->getJsonApiClientFactory();
 			$jsonApiClientConfig  = $model->getJsonApiClientConfig();

@@ -1,18 +1,18 @@
 <?php
 /**
- * @package     Webmasterskaya\JsonApi\Client\Joomla
+ * @package     Webmasterskaya\JsonApi\Client\
  * @subpackage
  *
  * @copyright   A copyright
  * @license     A "Slug" license name e.g. GPL2
  */
 
-namespace Webmasterskaya\JsonApi\Client\Joomla;
+namespace Webmasterskaya\JsonApi\Client\;
 
 use Swis\JsonApi\Client\Interfaces\DocumentClientInterface as ClientInterface;
-use Webmasterskaya\JsonApi\Client\Joomla\Exception\JsonApiClientNotFoundException;
+use Webmasterskaya\JsonApi\Client\Exception\JsonApiClientNotFoundException;
 
-trait JsonApiClientAwareTrait
+trait ClientAwareTrait
 {
 	/**
 	 * The JSON API Client.

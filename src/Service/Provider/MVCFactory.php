@@ -1,13 +1,13 @@
 <?php
 /**
- * @package     Webmasterskaya\JsonApi\Client\Joomla\Service\Provider
+ * @package     Webmasterskaya\JsonApi\Client\Service\Provider
  * @subpackage
  *
  * @copyright   A copyright
  * @license     A "Slug" license name e.g. GPL2
  */
 
-namespace Webmasterskaya\JsonApi\Client\Joomla\Service\Provider;
+namespace Webmasterskaya\JsonApi\Client\Service\Provider;
 
 use Joomla\CMS\Cache\CacheControllerFactoryInterface;
 use Joomla\CMS\Form\FormFactoryInterface;
@@ -20,7 +20,7 @@ use Joomla\Database\DatabaseInterface;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 use Joomla\Event\DispatcherInterface;
-use Webmasterskaya\JsonApi\Client\Joomla\JsonApiClientFactoryInterface;
+use Webmasterskaya\JsonApi\Client\ClientFactoryInterface;
 
 class MVCFactory implements ServiceProviderInterface
 {
@@ -62,7 +62,7 @@ class MVCFactory implements ServiceProviderInterface
 				if (\Joomla\CMS\Factory::getApplication()->isClient('api')) {
 					$factory = new ApiMVCFactory($this->namespace);
 				} else {
-					$factory = new \Webmasterskaya\JsonApi\Client\Joomla\MVC\Factory\MVCFactory($this->namespace);
+					$factory = new \Webmasterskaya\JsonApi\Client\MVC\Factory\MVCFactory($this->namespace);
 				}
 
 				$factory->setFormFactory($container->get(FormFactoryInterface::class));
@@ -72,7 +72,7 @@ class MVCFactory implements ServiceProviderInterface
 				$factory->setCacheControllerFactory($container->get(CacheControllerFactoryInterface::class));
 				$factory->setUserFactory($container->get(UserFactoryInterface::class));
 				$factory->setMailerFactory($container->get(MailerFactoryInterface::class));
-				$factory->setJsonApiClientFactory($container->get(JsonApiClientFactoryInterface::class));
+				$factory->setJsonApiClientFactory($container->get(ClientFactoryInterface::class));
 
 				return $factory;
 			}

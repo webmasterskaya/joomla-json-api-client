@@ -1,13 +1,13 @@
 <?php
 /**
- * @package     Webmasterskaya\JsonApi\Client\Joomla\Helper
+ * @package     Webmasterskaya\JsonApi\Client\Helper
  * @subpackage
  *
  * @copyright   A copyright
  * @license     A "Slug" license name e.g. GPL2
  */
 
-namespace Webmasterskaya\JsonApi\Client\Joomla\Helper;
+namespace Webmasterskaya\JsonApi\Client\Helper;
 
 use Psr\Http\Message\ResponseInterface;
 

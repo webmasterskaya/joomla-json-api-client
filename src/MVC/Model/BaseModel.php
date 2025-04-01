@@ -1,13 +1,13 @@
 <?php
 /**
- * @package     Webmasterskaya\JsonApi\Client\Joomla\MVC\Model
+ * @package     Webmasterskaya\JsonApi\Client\MVC\Model
  * @subpackage
  *
  * @copyright   A copyright
  * @license     A "Slug" license name e.g. GPL2
  */
 
-namespace Webmasterskaya\JsonApi\Client\Joomla\MVC\Model;
+namespace Webmasterskaya\JsonApi\Client\MVC\Model;
 
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Extension\ComponentInterface;
@@ -21,16 +21,16 @@ use Joomla\CMS\User\CurrentUserInterface;
 use Joomla\CMS\User\CurrentUserTrait;
 use Joomla\Event\DispatcherAwareInterface;
 use Joomla\Event\DispatcherAwareTrait;
-use Webmasterskaya\JsonApi\Client\Joomla\JsonApiClientAwareInterface;
-use Webmasterskaya\JsonApi\Client\Joomla\JsonApiClientAwareTrait;
+use Webmasterskaya\JsonApi\Client\ClientAwareInterface;
+use Webmasterskaya\JsonApi\Client\ClientAwareTrait;
 
-abstract class BaseJsonApiModel extends JoomlaBaseModel implements
+abstract class BaseModel extends JoomlaBaseModel implements
 	JsonApiModelInterface,
 	DispatcherAwareInterface,
 	CurrentUserInterface,
-	JsonApiClientAwareInterface
+	ClientAwareInterface
 {
-	use JsonApiClientAwareTrait;
+	use ClientAwareTrait;
 	use MVCFactoryAwareTrait;
 	use DispatcherAwareTrait;
 	use CurrentUserTrait;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Webmasterskaya\JsonApi\Client\Joomla\Parser;
+namespace Webmasterskaya\JsonApi\Client\Parser;
 
 use Swis\JsonApi\Client\Collection;
 use Swis\JsonApi\Client\Exceptions\ValidationException;

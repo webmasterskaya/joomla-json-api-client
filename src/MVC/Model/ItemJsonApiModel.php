@@ -1,18 +1,18 @@
 <?php
 /**
- * @package     Webmasterskaya\JsonApi\Client\Joomla\MVC\Model
+ * @package     Webmasterskaya\JsonApi\Client\MVC\Model
  * @subpackage
  *
  * @copyright   A copyright
  * @license     A "Slug" license name e.g. GPL2
  */
 
-namespace Webmasterskaya\JsonApi\Client\Joomla\MVC\Model;
+namespace Webmasterskaya\JsonApi\Client\MVC\Model;
 
 use Joomla\CMS\MVC\Model\ItemModelInterface;
 use Joomla\Utilities\ArrayHelper;
 
-abstract class ItemJsonApiModel extends BaseJsonApiModel implements ItemModelInterface
+abstract class ItemJsonApiModel extends BaseModel implements ItemModelInterface
 {
 	/**
 	 * An item.
@@ -72,8 +72,15 @@ abstract class ItemJsonApiModel extends BaseJsonApiModel implements ItemModelInt
 				throw new \RuntimeException(array_shift($errors));
 			}
 
-			$result              = $document->getData()->toArray();
-			$this->_item[$store] = ArrayHelper::toObject($result);
+			$data   = $document->getData();
+			$result = $data->toArray();
+
+			if (property_exists($data, 'id'))
+			{
+				$result['id'] = $data->id;
+			}
+
+			$this->_item[$store] = ArrayHelper::toObject($result, \stdClass::class, false);
 		}
 
 		return $this->_item[$store];

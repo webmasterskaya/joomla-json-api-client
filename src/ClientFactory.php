@@ -1,13 +1,13 @@
 <?php
 /**
- * @package     Webmasterskaya\JsonApi\Client\Joomla
+ * @package     Webmasterskaya\JsonApi\Client\
  * @subpackage
  *
  * @copyright   A copyright
  * @license     A "Slug" license name e.g. GPL2
  */
 
-namespace Webmasterskaya\JsonApi\Client\Joomla;
+namespace Webmasterskaya\JsonApi\Client\;
 
 use Joomla\Http\HttpFactory;
 use Laminas\Diactoros\RequestFactory;
@@ -16,9 +16,9 @@ use Swis\JsonApi\Client\Client;
 use Swis\JsonApi\Client\DocumentClient;
 use Swis\JsonApi\Client\Parsers\ResponseParser;
 use Swis\JsonApi\Client\TypeMapper;
-use Webmasterskaya\JsonApi\Client\Joomla\Parser\DocumentParser;
+use Webmasterskaya\JsonApi\Client\Parser\DocumentParser;
 
-class JsonApiClientFactory implements JsonApiClientFactoryInterface
+class ClientFactory implements ClientFactoryInterface
 {
 	public function createClient(array $jsonApiClientConfig = []): DocumentClient
 	{

@@ -1,13 +1,13 @@
 <?php
 /**
- * @package     Webmasterskaya\JsonApi\Client\Joomla\Parser
+ * @package     Webmasterskaya\JsonApi\Client\Parser
  * @subpackage
  *
  * @copyright   A copyright
  * @license     A "Slug" license name e.g. GPL2
  */
 
-namespace Webmasterskaya\JsonApi\Client\Joomla\Parser;
+namespace Webmasterskaya\JsonApi\Client\Parser;
 
 use Swis\JsonApi\Client\Collection;
 use Swis\JsonApi\Client\CollectionDocument;
