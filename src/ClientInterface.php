@@ -13,9 +13,49 @@ use Swis\JsonApi\Client\Interfaces\DocumentClientInterface;
 use Swis\JsonApi\Client\Interfaces\DocumentInterface;
 use Swis\JsonApi\Client\Interfaces\ItemDocumentInterface;
 
-interface ClientInterface extends DocumentClientInterface
+interface ClientInterface
 {
-	public function patch(string $endpoint, \JsonSerializable $document, array $headers = []): DocumentInterface;
+	/**
+	 * @param   string  $endpoint
+	 * @param   array   $headers
+	 *
+	 * @return \Swis\JsonApi\Client\Interfaces\DocumentInterface
+	 */
+	public function get(string $endpoint, array $headers = []): DocumentInterface;
 
-	public function post(string $endpoint, \JsonSerializable $document, array $headers = []): DocumentInterface;
+	/**
+	 * @param   string  $endpoint
+	 * @param   mixed   $body
+	 * @param   array   $headers
+	 *
+	 * @return \Swis\JsonApi\Client\Interfaces\DocumentInterface
+	 */
+	public function patch(string $endpoint, mixed $body, array $headers = []): DocumentInterface;
+
+	/**
+	 * @param   string  $endpoint
+	 * @param   mixed   $body
+	 * @param   array   $headers
+	 *
+	 * @return \Swis\JsonApi\Client\Interfaces\DocumentInterface
+	 */
+	public function post(string $endpoint, mixed $body, array $headers = []): DocumentInterface;
+
+	/**
+	 * @param   string  $endpoint
+	 * @param   array   $headers
+	 *
+	 * @return \Swis\JsonApi\Client\Interfaces\DocumentInterface
+	 */
+	public function delete(string $endpoint, array $headers = []): DocumentInterface;
+
+	/**
+	 * @return string
+	 */
+	public function getBaseUri(): string;
+
+	/**
+	 * @param   string  $baseUri
+	 */
+	public function setBaseUri(string $baseUri);
 }

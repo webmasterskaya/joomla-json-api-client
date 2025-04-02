@@ -9,6 +9,8 @@
 
 namespace Webmasterskaya\JsonApi\Client;
 
+use JsonSerializable;
+use Psr\Http\Message\StreamInterface;
 use Swis\JsonApi\Client\DocumentClient;
 use Swis\JsonApi\Client\Interfaces\ClientInterface as BaseClientInterface;
 use Swis\JsonApi\Client\Interfaces\DocumentInterface;
@@ -26,39 +28,39 @@ class Client extends DocumentClient implements ClientInterface
 	}
 
 	/**
-	 * @param   string             $endpoint
-	 * @param   \JsonSerializable  $body
-	 * @param   array              $headers
+	 * @param   string  $endpoint
+	 * @param   mixed   $body
+	 * @param   array   $headers
+	 *
+	 * @return \Swis\JsonApi\Client\Interfaces\DocumentInterface
+	 */
+	public function post(string $endpoint, mixed $body, array $headers = []): DocumentInterface
+	{
+		return $this->parseResponse($this->client->post($endpoint, $this->checkBody($body), $headers));
+	}
+
+	/**
+	 * @param   string  $endpoint
+	 * @param   mixed   $body
+	 * @param   array   $headers
 	 *
 	 * @return \Swis\JsonApi\Client\Interfaces\DocumentInterface
 	 * @throws \JsonException
 	 */
-	public function post(string $endpoint, \JsonSerializable $body, array $headers = []): DocumentInterface
+	public function patch(string $endpoint, mixed $body, array $headers = []): DocumentInterface
 	{
-		return $this->parseResponse($this->client->post($endpoint, $this->prepareBody($body), $headers));
+		return $this->parseResponse($this->client->patch($endpoint, $body, $headers));
 	}
 
-	/**
-	 * @param   string             $endpoint
-	 * @param   \JsonSerializable  $body
-	 * @param   array              $headers
-	 *
-	 * @return \Swis\JsonApi\Client\Interfaces\DocumentInterface
-	 * @throws \JsonException
-	 */
-	public function patch(string $endpoint, \JsonSerializable $body, array $headers = []): DocumentInterface
+	protected function checkBody(mixed $body): mixed
 	{
-		return $this->parseResponse($this->client->patch($endpoint, $this->prepareBody($body), $headers));
-	}
+		if (is_scalar($body)
+			|| is_resource($body)
+			|| $body instanceof StreamInterface)
+		{
+			return $body;
+		}
 
-	/**
-	 * @param   \Swis\JsonApi\Client\Interfaces\ItemDocumentInterface  $body
-	 *
-	 * @return string
-	 * @throws \JsonException
-	 */
-	protected function prepareBody(\JsonSerializable $body): string
-	{
-		return $this->sanitizeJson(json_encode($body, JSON_THROW_ON_ERROR));
+		return http_build_query($body);
 	}
 }
