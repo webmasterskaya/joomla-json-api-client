@@ -11,6 +11,7 @@ namespace Webmasterskaya\JsonApi\Client\MVC\Model;
 
 use Joomla\CMS\MVC\Model\ItemModelInterface;
 use Joomla\Utilities\ArrayHelper;
+use Webmasterskaya\JsonApi\Client\Exception\ResponseErrorException;
 
 abstract class ItemJsonApiJsonApiModel extends BaseJsonApiModel implements ItemModelInterface
 {
@@ -61,17 +62,21 @@ abstract class ItemJsonApiJsonApiModel extends BaseJsonApiModel implements ItemM
 
 		if (!isset($this->_item[$store]))
 		{
+			/** @var \Swis\JsonApi\Client\Document $document */
 			$document = $this->getJsonApiClient()->get(
 				$this->getItemRequestEndpoint($pk),
 				$this->getItemRequestHeaders($pk)
 			);
 
-			if (!$document->isSuccess())
+			if ($document->hasErrors())
 			{
+				/** @var \Swis\JsonApi\Client\Error[] $errors */
 				$errors = $document->getErrors()->toArray();
-				throw new \RuntimeException(array_shift($errors));
+				$error  = $errors[0];
+				throw new ResponseErrorException($error);
 			}
 
+			/** @var \Swis\JsonApi\Client\ItemDocument $data */
 			$data   = $document->getData();
 			$result = $data->toArray();
 
