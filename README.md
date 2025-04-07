@@ -36,19 +36,19 @@ return new class implements ServiceProviderInterface {
 ### Реализуйте собственные модели, унаследовав базовые моделей
 
 ```php
-class ArticleModel extends \Webmasterskaya\JsonApi\Client\MVC\Model\ItemJsonApiJsonApiModel {
+class ArticleModel extends \Webmasterskaya\JsonApi\Client\MVC\Model\ItemJsonApiModel {
 
 }
 ```
 
 ```php
-class ArticlesModel extends \Webmasterskaya\JsonApi\Client\MVC\Model\ListJsonApiJsonApiModel {
+class ArticlesModel extends \Webmasterskaya\JsonApi\Client\MVC\Model\ListJsonApiModel {
 
 }
 ```
 
 ```php
-class FormModel extends \Webmasterskaya\JsonApi\Client\MVC\Model\FormJsonApiJsonApiModel {
+class FormModel extends \Webmasterskaya\JsonApi\Client\MVC\Model\FormJsonApiModel {
 
 }
 ```

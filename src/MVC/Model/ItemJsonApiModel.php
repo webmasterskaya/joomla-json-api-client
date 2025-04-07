@@ -13,7 +13,7 @@ use Joomla\CMS\MVC\Model\ItemModelInterface;
 use Joomla\Utilities\ArrayHelper;
 use Webmasterskaya\JsonApi\Client\Exception\ResponseErrorException;
 
-abstract class ItemJsonApiJsonApiModel extends BaseJsonApiModel implements ItemModelInterface
+abstract class ItemJsonApiModel extends BaseJsonApiModel implements ItemModelInterface
 {
 	/**
 	 * An item.

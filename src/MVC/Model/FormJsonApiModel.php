@@ -14,7 +14,7 @@ use Joomla\CMS\Form\FormFactoryAwareTrait;
 use Joomla\CMS\MVC\Model\FormBehaviorTrait;
 use Joomla\CMS\MVC\Model\FormModelInterface;
 
-abstract class FormJsonApiJsonApiModel extends BaseJsonApiModel implements FormFactoryAwareInterface, FormModelInterface
+abstract class FormJsonApiModel extends BaseJsonApiModel implements FormFactoryAwareInterface, FormModelInterface
 {
 	use FormBehaviorTrait;
 	use FormFactoryAwareTrait;

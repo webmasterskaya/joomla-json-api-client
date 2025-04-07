@@ -15,7 +15,7 @@ use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\FormBehaviorTrait;
 use Joomla\CMS\MVC\Model\ListModelInterface;
 
-abstract class ListJsonApiJsonApiModel extends BaseJsonApiModel implements FormFactoryAwareInterface, ListModelInterface
+abstract class ListJsonApiModel extends BaseJsonApiModel implements FormFactoryAwareInterface, ListModelInterface
 {
 	use FormBehaviorTrait;
 	use FormFactoryAwareTrait;
