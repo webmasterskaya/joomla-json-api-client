@@ -51,7 +51,7 @@ abstract class BaseJsonApiModel extends JoomlaBaseModel implements
 	 */
 	protected string $event_clean_cache;
 
-	public function __construct($config = [], MVCFactoryInterface $factory = null)
+	public function __construct(array $config = [], MVCFactoryInterface $factory = null)
 	{
 		parent::__construct($config);
 
@@ -63,6 +63,7 @@ abstract class BaseJsonApiModel extends JoomlaBaseModel implements
 			}
 		}
 
+		// Clean all empty options for use default values
 		$this->jsonApiClientConfig = array_filter($this->jsonApiClientConfig, fn ($item) => !empty($item));
 
 		// Guess the option from the class name (Option)Model(View).
@@ -129,7 +130,7 @@ abstract class BaseJsonApiModel extends JoomlaBaseModel implements
 	 * @since   4.0.0
 	 * @throws  \Exception
 	 */
-	public function getName()
+	public function getName(): string
 	{
 		if (empty($this->name)) {
 			$r = null;
