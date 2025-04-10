@@ -26,6 +26,11 @@ class ErrorCollectionParser
      */
     public function parse($data): ErrorCollection
     {
+		// Joomla отвечает не массивом объектов, вопреки стандартам
+	    if(is_object($data)){
+		    $data = [$data];
+	    }
+
         if (!is_array($data)) {
             throw new ValidationException(sprintf('ErrorCollection MUST be an array, "%s" given.', gettype($data)));
         }
