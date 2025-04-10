@@ -51,7 +51,16 @@ abstract class ItemJsonApiModel extends BaseJsonApiModel implements ItemModelInt
 		return md5($this->getItemRequestEndpoint($id));
 	}
 
-	public function getItem(?string $pk = null)
+	/**
+	 * @param null|int|string $pk
+	 *
+	 * @return object
+	 *
+	 * @throws \Exception
+	 * @since version
+	 * @noinspection PhpMissingReturnTypeInspection
+	 */
+	public function getItem($pk = null)
 	{
 		$pk    = trim($pk ?: $this->getState($this->getName() . '.id'));
 		$store = $this->getStoreId($pk);
@@ -93,9 +102,13 @@ abstract class ItemJsonApiModel extends BaseJsonApiModel implements ItemModelInt
 	}
 
 	/**
+	 * @param   null|int|string  $pk
+	 *
+	 * @return string
 	 * @throws \Exception
+	 * @noinspection PhpMissingParamTypeInspection
 	 */
-	protected function getItemRequestEndpoint(?string $pk = null): string
+	protected function getItemRequestEndpoint($pk = null): string
 	{
 		return rtrim('/' . strtolower($this->getName()) . '/' . $pk, '/');
 	}
