@@ -10,8 +10,9 @@
 namespace Webmasterskaya\JsonApi\Client\Exception;
 
 use Swis\JsonApi\Client\Error;
+use Tobscure\JsonApi\Exception\InvalidParameterException;
 
-class ResponseErrorException extends \RuntimeException
+class ResponseErrorException extends InvalidParameterException
 {
 	public function __construct(Error $error, \Throwable $previous = null)
 	{
