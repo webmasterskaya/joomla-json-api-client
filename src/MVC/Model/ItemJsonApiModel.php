@@ -15,106 +15,109 @@ use Webmasterskaya\JsonApi\Client\Exception\ResponseErrorException;
 
 abstract class ItemJsonApiModel extends BaseJsonApiModel implements ItemModelInterface
 {
-	/**
-	 * An item.
-	 *
-	 * @var    null|array
-	 * @since  1.6
-	 */
-	protected ?array $_item = null;
+    /**
+     * An item.
+     *
+     * @var    null|array
+     * @since  1.6
+     */
+    protected ?array $_item = null;
 
-	/**
-	 * Model context string.
-	 *
-	 * @var    string
-	 * @since  1.6
-	 */
-	protected string $_context = 'group.type';
+    /**
+     * Method to get a store id based on model configuration state.
+     *
+     * This is necessary because the model is used by the component and
+     * different modules that might need different sets of data or different
+     * ordering requirements.
+     *
+     * @param string $id A prefix for the store id.
+     *
+     * @return  string  A store id.
+     *
+     * @throws \Exception
+     * @since   1.6
+     */
+    protected function getStoreId(string $id): string
+    {
+        // Compile the store id.
+        return md5($this->getItemRequestEndpoint($id));
+    }
 
-	/**
-	 * Method to get a store id based on model configuration state.
-	 *
-	 * This is necessary because the model is used by the component and
-	 * different modules that might need different sets of data or different
-	 * ordering requirements.
-	 *
-	 * @param   string  $id  A prefix for the store id.
-	 *
-	 * @return  string  A store id.
-	 *
-	 * @throws \Exception
-	 * @since   1.6
-	 */
-	protected function getStoreId(string $id): string
-	{
-		// Compile the store id.
-		return md5($this->getItemRequestEndpoint($id));
-	}
+    /**
+     * @param null|int|string $pk
+     *
+     * @return object
+     *
+     * @throws \Exception
+     * @since version
+     * @noinspection PhpMissingReturnTypeInspection
+     */
+    public function getItem($pk = null)
+    {
+        $pk = ($pk === null) ? $this->getState($this->getName() . '.id') : $pk;
 
-	/**
-	 * @param null|int|string $pk
-	 *
-	 * @return object
-	 *
-	 * @throws \Exception
-	 * @since version
-	 * @noinspection PhpMissingReturnTypeInspection
-	 */
-	public function getItem($pk = null)
-	{
-		$pk    = trim($pk ?: $this->getState($this->getName() . '.id'));
-		$store = $this->getStoreId($pk);
+        if ($pk === null) {
+            throw new \InvalidArgumentException('Item `pk` cannot be null');
+        }
 
-		if ($this->_item === null)
-		{
-			$this->_item = [];
-		}
+        if (is_string($pk)) {
+            $pk = trim($pk);
+        }
 
-		if (!isset($this->_item[$store]))
-		{
-			/** @var \Swis\JsonApi\Client\Document $document */
-			$document = $this->getJsonApiClient()->get(
-				$this->getItemRequestEndpoint($pk),
-				$this->getItemRequestHeaders($pk)
-			);
+        $store = $this->getStoreId($pk);
 
-			if ($document->hasErrors())
-			{
-				/** @var \Swis\JsonApi\Client\Error[] $errors */
-				$errors = $document->getErrors()->toArray();
-				$error  = $errors[0];
-				throw new ResponseErrorException($error);
-			}
+        if ($this->_item === null) {
+            $this->_item = [];
+        }
 
-			/** @var \Swis\JsonApi\Client\ItemDocument $data */
-			$data   = $document->getData();
-			$result = $data->toArray();
+        if (isset($this->_item[$store]) && !empty($pk)) {
+            return $this->_item[$store];
+        }
 
-			if (property_exists($data, 'id'))
-			{
-				$result['id'] = $data->id;
-			}
+        /** @var \Swis\JsonApi\Client\Document $document */
+        $document = $this->getJsonApiClient()->get(
+            $this->getItemRequestEndpoint($pk),
+            $this->getItemRequestHeaders($pk),
+        );
 
-			$this->_item[$store] = ArrayHelper::toObject($result, \stdClass::class, false);
-		}
+        if ($document->hasErrors()) {
+            /** @var \Swis\JsonApi\Client\Error[] $errors */
+            $errors = $document->getErrors()->toArray();
+            $error = $errors[0];
+            throw new ResponseErrorException($error);
+        }
 
-		return $this->_item[$store];
-	}
+        /** @var \Swis\JsonApi\Client\ItemDocument $data */
+        $data = $document->getData();
+        $result = $data->toArray();
 
-	/**
-	 * @param   null|int|string  $pk
-	 *
-	 * @return string
-	 * @throws \Exception
-	 * @noinspection PhpMissingParamTypeInspection
-	 */
-	protected function getItemRequestEndpoint($pk = null): string
-	{
-		return rtrim('/' . strtolower($this->getName()) . '/' . $pk, '/');
-	}
+        if (property_exists($data, 'id')) {
+            $result['id'] = $data->id;
+        }
 
-	protected function getItemRequestHeaders(?string $pk = null): array
-	{
-		return [];
-	}
+        $item = ArrayHelper::toObject($result, \stdClass::class, false);
+
+        if (empty($pk) && !empty($result->id)) {
+            $this->_item[$this->getStoreId($result->id)] = $item;
+        }
+
+        return $item;
+    }
+
+    /**
+     * @param null|int|string $pk
+     *
+     * @return string
+     * @throws \Exception
+     * @noinspection PhpMissingParamTypeInspection
+     */
+    protected function getItemRequestEndpoint($pk = null): string
+    {
+        return rtrim('/' . strtolower($this->getName()) . '/' . $pk, '/');
+    }
+
+    protected function getItemRequestHeaders(?string $pk = null): array
+    {
+        return [];
+    }
 }
